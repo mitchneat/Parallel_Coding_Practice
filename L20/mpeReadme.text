@@ -1,0 +1,31 @@
+# slurm alloc 
+salloc --partition=dev_q --nodes=1 --tasks-per-node=6  -Acmda3634
+
+# load modules
+module load gcc openmpi jdk mpe2 
+
+# compile with mpe logging
+mpecc -mpilog -o mpiSendRecv mpiSendRecv.c 
+
+mpiexec -n 2 ./mpiSendRecv
+
+# output
+recvBuffer[0]=999
+recvBuffer[1]=999
+recvBuffer[2]=999
+recvBuffer[3]=999
+recvBuffer[4]=999
+recvBuffer[5]=999
+recvBuffer[6]=999
+recvBuffer[7]=999
+recvBuffer[8]=999
+recvBuffer[9]=999
+Writing logfile....
+Enabling the Default clock synchronization...
+Finished writing logfile ./mpiSendRecv.clog2.
+
+ls
+mpiSendRecv  mpiSendRecv.c  mpiSendRecv.clog2  mpiTreeBarrier.c
+
+# run jumpshot from login node only
+jumpshot mpiSendRecv.clog2
