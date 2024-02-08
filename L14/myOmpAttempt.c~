@@ -1,0 +1,28 @@
+#include<omp.h>
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(int argc, char **argv){
+  int N = 100;
+  int *v = (int*) calloc(N, sizeof(int));
+
+  omp_set_num_threads(4);
+
+#pragma omp parrallel
+  {
+    int n;
+    int threadIndex = omp_get_thread_num();
+    int len = N/4;
+    for(n=0; n<len; n+=4){
+      v[n+threadIndex] = threadIndex
+    }
+
+
+  }
+
+  int n;
+  for(n=0; n<N;++n){
+    printf("v[%d]=%d\n", n, v[n]);
+  }
+  
+}
